@@ -30,6 +30,6 @@ func (b *Bot) MessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	b.mu.RUnlock()
 
 	if exists && handler != nil {
-		handler(b, s, m, args)
+		handler(s, m, args)
 	}
 }
