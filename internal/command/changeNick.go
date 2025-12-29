@@ -7,6 +7,11 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
+var blackList = map[string]bool{
+	"471650968245764099": true, // Гоша
+	"240881052720037888": true, // Антон
+}
+
 func HandleChangeNick(s *discordgo.Session, m *discordgo.MessageCreate, args []string) {
 	if len(args) == 0 {
 		showNickHelp(s, m)
@@ -41,6 +46,13 @@ func handleNickSet(s *discordgo.Session, m *discordgo.MessageCreate, args []stri
 	}
 
 	targetUser := m.Mentions[0]
+
+	_, isBadUser := blackList[targetUser.ID]
+
+	if isBadUser {
+		sendMessage(s, m, "❌ У вас нет прав на смену ника.")
+		return
+	}
 
 	nickStart := -1
 	for i, arg := range args {
