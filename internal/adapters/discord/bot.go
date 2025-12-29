@@ -8,7 +8,7 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
-type CommandHandler func(b *Bot, s *discordgo.Session, m *discordgo.MessageCreate, args []string)
+type CommandHandler func(s *discordgo.Session, m *discordgo.MessageCreate, args []string)
 
 type Bot struct {
 	prefix   string

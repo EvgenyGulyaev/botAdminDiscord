@@ -13,6 +13,7 @@ func main() {
 
 	b := discord.GetBot(c.Env["TOKEN"])
 	b.RegisterCommand("ping", command.HandlePing)
+	b.RegisterCommand("set", command.HandleChangeNick)
 
 	err := b.Run()
 	if err != nil {
