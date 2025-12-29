@@ -47,7 +47,7 @@ func handleNickSet(s *discordgo.Session, m *discordgo.MessageCreate, args []stri
 
 	targetUser := m.Mentions[0]
 
-	u, isBadUser := blackList[targetUser.ID]
+	u, isBadUser := blackList[m.Author.ID]
 
 	if isBadUser {
 		res := fmt.Sprintf("Вас зовут %s ? ❌ У вас нет прав на смену ника. \n Администрация переживает за вашу психику", u)
