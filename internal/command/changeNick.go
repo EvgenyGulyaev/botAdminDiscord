@@ -7,9 +7,9 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
-var blackList = map[string]bool{
-	"471650968245764099": true, // Гоша
-	"240881052720037888": true, // Антон
+var blackList = map[string]string{
+	"471650968245764099": "Гоша",  // Гоша
+	"240881052720037888": "Антон", // Антон
 }
 
 func HandleChangeNick(s *discordgo.Session, m *discordgo.MessageCreate, args []string) {
@@ -47,10 +47,11 @@ func handleNickSet(s *discordgo.Session, m *discordgo.MessageCreate, args []stri
 
 	targetUser := m.Mentions[0]
 
-	_, isBadUser := blackList[targetUser.ID]
+	u, isBadUser := blackList[targetUser.ID]
 
 	if isBadUser {
-		sendMessage(s, m, "❌ У вас нет прав на смену ника.")
+		res := fmt.Sprintf("Вас зовут %s ? ❌ У вас нет прав на смену ника. \n Администрация переживает за вашу психику", u)
+		sendMessage(s, m, res)
 		return
 	}
 
